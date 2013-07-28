@@ -4,13 +4,16 @@ block content
   if locals.hash
     .row-fluid
       .col-12 
-        = hash
+        = hash.text
   .row-fluid
     .col-12 
       textarea.secure-text.text-input(placeholder="Paste text here")
   .row-fluid
     .col-12
       .btn-group.expiration-time-buttons(data-toggle="buttons")
+        label.btn.btn-default
+          input(type="radio", name="expiration-time", id="expiration-time--1", data-expiration-minutes="1")
+          | 1 Minute
         label.btn.btn-default
           input(type="radio", name="expiration-time", id="expiration-time--5", data-expiration-minutes="5")
           | 5 Minutes
@@ -23,14 +26,16 @@ block content
   .row-fluid
     .col-12
       .btn.btn-primary.js-submit Submit
-  .row-fluid
-    .col-12
-      .well.current-urls
-        small Your link:
-        if locals.existingRecords
-          = existingRecords
-
-
+  if locals.existingRecords
+    .row-fluid
+      .col-12
+        ul.list-group.current-records
+          each record in existingRecords
+            li.list-group-item.record(data-hash=record.hash)
+              span.badge.clear-record clear
+              a(href="/" + record.hash)= 'localhost:5000/' + record.hash
+              br
+              if record.expirationTimePretty
+                em.text-muted= "Expires: " + record.expirationTimePretty
 
 block bodyscripts
-  //- script(async src="js/app.js")

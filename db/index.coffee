@@ -1,11 +1,18 @@
 mongoose = require 'mongoose'
+moment = require 'moment'
+
+formatTime = (time) ->
+  moment(time).format('MMM Mo @ h:mmA')
 
 recordSchema = new mongoose.Schema
-  text: String
+  text: 
+    type: String
+    required: true
   expirationMinutes:
     type: Number
     required: true
     default: 15
+    max: 120
   auth_token:
     type: String
     required: true
@@ -16,6 +23,12 @@ recordSchema = new mongoose.Schema
     required: true
     unique: true
     index: true
+  expirationTime:
+    type: Date
+    required: true
+  expirationTimePretty:
+    type: String
+    set: formatTime
   expired:
     type: Boolean
     default: false

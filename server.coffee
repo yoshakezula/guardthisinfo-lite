@@ -52,7 +52,7 @@ authenticate = (req, res, next) ->
 
 findRecords = (req, res, next) ->
   query = schema.Record.find {auth_token: req.signedCookies.auth_token}
-  query.select 'text hash'
+  query.select 'hash expirationTimePretty'
   query.exec (err, result) ->
     if err
       console.log 'error looking up existing records for auth_token ' + req.signedCookies.auth_token
@@ -60,29 +60,44 @@ findRecords = (req, res, next) ->
       res.locals.existingRecords = result
     next()
 
-
 app.get '/', authenticate, findRecords, (req, res) -> 
   console.log res.locals
   res.render 'index'
 
 app.get '/:hash', authenticate, findRecords, (req, res) ->
   query = schema.Record.findOne {hash: req.params.hash}
-  query.select 'text hash'
+  query.where('expirationTime').lt(new Date())
+  query.select 'text hash expirationTime expirationTimePretty'
   query.exec (err, result) ->
     res.render 'index', hash: if err then 'Not found' else result
 
 app.post '/', authenticate, (req, res) ->
   reqBody = req.body
+  expirationTime = new Date()
+  expirationTime.setMinutes(expirationTime.getMinutes() + reqBody.expirationMinutes)
   newRecord = new schema.Record
     text: reqBody.text
     expirationMinutes: parseInt reqBody.expirationMinutes
     hash: crypto.randomBytes(20).toString('hex')
     auth_token: req.signedCookies.auth_token
+    expirationTime: expirationTime
+    expirationTimePretty: expirationTime
   newRecord.save (err) -> 
-    if err then console.log 'error saving record' 
-    else 
+    if err then console.log 'error saving record:', err
+    else
       console.log 'new record saved with hash ' + newRecord.hash
-      res.send {hash: newRecord.hash}
+      res.send {hash: newRecord.hash, expirationTimePretty: newRecord.expirationTimePretty}
+
+app.post '/delete/:hash', authenticate, (req, res) ->
+  query = schema.Record.findOneAndRemove {hash: req.params.hash}
+  query.exec (err, result) ->
+    if err 
+      console.log 'record to delete not found: ' + req.params.hash 
+      res.send {errors: 'record not found'}
+    else
+      console.log 'removed record with hash: ' + result.hash
+      res.send {removed: result.hash}
+
 
 
 port = process.env.PORT || 3000
