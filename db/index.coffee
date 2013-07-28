@@ -4,10 +4,14 @@ moment = require 'moment'
 formatTime = (time) ->
   moment(time).format('MMM Do @ h:mmA')
 
+textValidator = (v) -> v.length < 1000
+
 recordSchema = new mongoose.Schema
   text: 
     type: String
     required: true
+    trim: true
+    validate: [textValidator, 'text length error']
   expirationMinutes:
     type: Number
     required: true

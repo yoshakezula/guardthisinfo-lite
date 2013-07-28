@@ -86,7 +86,9 @@ app.post '/', authenticate, (req, res) ->
     expirationTime: expirationTime
     expirationTimePretty: expirationTime
   newRecord.save (err) -> 
-    if err then console.log 'error saving record:', err
+    if err 
+      console.log 'error saving record:', newRecord.hash
+      res.send { error: err }
     else
       console.log 'new record saved with hash ' + newRecord.hash
       console.log newRecord

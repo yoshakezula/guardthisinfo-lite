@@ -20,11 +20,12 @@ block content
 
 
   .row
-    section.col-lg-4.site-info A much better way to securely and temporarily share text. Use it instead of sending in an email — which is on record forever.
+    section.col-lg-4.site-info 
+      .site-info__tagline A more secure way to temporarily share short pieces of information
     section.col-lg-8.app
-      .row
+      .row.app__row
         .col-lg-12
-          textarea.secure-text.form-control(placeholder="Paste text here", rows="4")
+          textarea.secure-text.form-control(placeholder="Paste text here", rows="4", maxlength="1000")
           .buttons
             .btn-group.expiration-time-buttons.pull-left(data-toggle="buttons")
               label.btn.btn-default.btn-large
@@ -41,17 +42,16 @@ block content
                 | 15 min
             .btn.btn-primary.pull-right.btn-large.js-submit.submit-record Submit
           
-      if locals.existingRecords
-        .row
-          .col-lg-12
-            h4.current-records__header Previous links
-            ul.list-group.current-records
-              each record in existingRecords
-                li.list-group-item.record.js-record(data-hash=record.hash)
-                  span.badge.clear-record.js-clear-record clear
-                  a(href="/" + record.hash)= 'localhost:5000/' + record.hash
-                  br
-                  if record.expirationTimePretty
-                    em.text-muted= "Expires: " + record.expirationTimePretty
+      .row.current-records__wrapper(style=(locals.existingRecords && locals.existingRecords.length > 0) ? "" : "display:none;")
+        .col-lg-12
+          h4.current-records__header Previous links
+          ul.list-group.current-records
+            each record in existingRecords
+              li.list-group-item.record.js-record(data-hash=record.hash)
+                span.badge.clear-record.js-clear-record clear
+                a(href="/" + record.hash)= 'guardthis.info/' + record.hash
+                br
+                if record.expirationTimePretty
+                  em.text-muted= "Expires: " + record.expirationTimePretty
 
 block bodyscripts

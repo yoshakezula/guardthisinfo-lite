@@ -10,8 +10,30 @@ html, body
   margin 0
   padding 0
 
-.app, .site-info
+body
+  background-image url('../img/groovepaper.png')
+
+body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6
+  font-family: "Ubuntu", "Helvetica Neue",Helvetica,Arial,sans-serif !important
+
+.page-header 
+  margin-top: 20px
+  h1
+    font-weight: 700
+    font-size: 54px
+
+.app__row, .site-info, .app
   padding-top: 20px
+
+.app__row
+  padding-bottom 30px
+  background-color: rgba(0,0,0,0.1)
+
+.site-info__tagline
+  font-size: 30px;
+  font-weight: 500;
+  color: #555;
+  text-shadow: 1px 1px #CCC;
 
 .buttons
   margin-top: 10px
@@ -22,6 +44,7 @@ html, body
 .found-record
   padding-top: 20px
   padding-bottom: 40px
+  margin-bottom: 20px
   background-color: #428BCA
   border-left: 6px solid #18558A
   .found-record__title, .found-record__expiration
