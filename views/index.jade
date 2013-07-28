@@ -27,6 +27,9 @@ block content
     .col-12
       .well.current-urls
         small Your link:
+        if locals.existingRecords
+          = existingRecords
+
 
 
 block bodyscripts
