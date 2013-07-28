@@ -66,10 +66,11 @@ app.get '/', authenticate, findRecords, (req, res) ->
 
 app.get '/:hash', authenticate, findRecords, (req, res) ->
   query = schema.Record.findOne {hash: req.params.hash}
-  query.where('expirationTime').lt(new Date())
+  query.where('expirationTime').gt(new Date())
   query.select 'text hash expirationTime expirationTimePretty'
   query.exec (err, result) ->
-    res.render 'index', foundRecord: if err || result == null then 'not found' else result
+    console.log result
+    res.render 'index', foundRecord: if (err || result == null) then 'not found' else result
 
 app.post '/', authenticate, (req, res) ->
   reqBody = req.body

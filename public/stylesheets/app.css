@@ -1,10 +1,15 @@
 @import "bootstrap.min.css";
 @import "animations.css";
 html,body{margin:0;padding:0}
-.app,.site-info{padding-top:50px}
-.buttons{margin-top:15px}
-.current-records{margin-top:30px}
+.app,.site-info{padding-top:20px}
+.buttons{margin-top:10px}
+.current-records__header{margin-top:40px}
 .found-record{padding-top:20px;padding-bottom:40px;background-color:#428bca;border-left:6px solid #18558a;}
 .found-record .found-record__title,.found-record .found-record__expiration{color:#fff}
 .found-record .found-record__expiration{padding-left:20px}
 .clear-record{cursor:pointer}
+@media (max-width:500px){.submit-record{float:none;margin-top:5px;width:100%}
+.expiration-time-buttons{width:100%;}
+.expiration-time-buttons .btn-large{width:25%;padding-left:5px;padding-right:5px}
+}@media (max-width:600px){.record a{overflow:hidden;max-width:200px;display:inline-block;-o-text-overflow:ellipsis;text-overflow:ellipsis}
+}

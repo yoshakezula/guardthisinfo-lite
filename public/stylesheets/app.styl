@@ -11,13 +11,13 @@ html, body
   padding 0
 
 .app, .site-info
-  padding-top: 50px
+  padding-top: 20px
 
 .buttons
-  margin-top: 15px
+  margin-top: 10px
 
-.current-records
-  margin-top: 30px
+.current-records__header
+  margin-top: 40px
 
 .found-record
   padding-top: 20px
@@ -31,3 +31,22 @@ html, body
 
 .clear-record
   cursor: pointer
+
+@media (max-width:500px)
+  .submit-record
+    float: none;
+    margin-top: 5px;
+    width: 100%;
+  .expiration-time-buttons 
+    width: 100%
+    .btn-large
+      width 25%
+      padding-left 5px
+      padding-right 5px
+
+@media (max-width:600px)
+  .record a
+    overflow: hidden;
+    max-width: 200px;
+    display: inline-block;
+    text-overflow: ellipsis;
