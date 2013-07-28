@@ -1,8 +1,16 @@
 (function() {
-  var callback;
+  var buildLink, callback;
 
-  callback = function(a, b, c) {
-    return console.log(a, b, c);
+  buildLink = function(hash) {
+    return '<a href="http://localhost:5000/' + hash + '">http://localhost:5000/' + hash + '</a>';
+  };
+
+  callback = function(data, status, xhr) {
+    if (status === "success") {
+      return $('.current-urls').append(buildLink(data.hash));
+    } else {
+      return console.log("error saving record");
+    }
   };
 
   $('.js-submit').on('click.submit', function() {

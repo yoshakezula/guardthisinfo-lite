@@ -1,6 +1,10 @@
 extends layout
 
 block content
+  if locals.hash
+    .row-fluid
+      .col-12 
+        = hash
   .row-fluid
     .col-12 
       textarea.secure-text.text-input(placeholder="Paste text here")
@@ -21,9 +25,8 @@ block content
       .btn.btn-primary.js-submit Submit
   .row-fluid
     .col-12
-      .well
+      .well.current-urls
         small Your link:
-        .secure-link Test
 
 
 block bodyscripts
