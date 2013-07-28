@@ -69,12 +69,14 @@ app.get '/:hash', authenticate, findRecords, (req, res) ->
   query.where('expirationTime').lt(new Date())
   query.select 'text hash expirationTime expirationTimePretty'
   query.exec (err, result) ->
-    res.render 'index', hash: if err then 'Not found' else result
+    res.render 'index', foundRecord: if err || result == null then 'not found' else result
 
 app.post '/', authenticate, (req, res) ->
   reqBody = req.body
   expirationTime = new Date()
-  expirationTime.setMinutes(expirationTime.getMinutes() + reqBody.expirationMinutes)
+  console.log expirationTime
+  expirationTime.setMinutes(expirationTime.getMinutes() + parseInt reqBody.expirationMinutes)
+  console.log expirationTime
   newRecord = new schema.Record
     text: reqBody.text
     expirationMinutes: parseInt reqBody.expirationMinutes
@@ -86,6 +88,7 @@ app.post '/', authenticate, (req, res) ->
     if err then console.log 'error saving record:', err
     else
       console.log 'new record saved with hash ' + newRecord.hash
+      console.log newRecord
       res.send {hash: newRecord.hash, expirationTimePretty: newRecord.expirationTimePretty}
 
 app.post '/delete/:hash', authenticate, (req, res) ->

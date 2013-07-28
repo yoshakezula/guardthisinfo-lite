@@ -1,41 +1,56 @@
 extends layout
 
 block content
-  if locals.hash
-    .row-fluid
-      .col-12 
-        = hash.text
-  .row-fluid
-    .col-12 
-      textarea.secure-text.text-input(placeholder="Paste text here")
-  .row-fluid
-    .col-12
-      .btn-group.expiration-time-buttons(data-toggle="buttons")
-        label.btn.btn-default
-          input(type="radio", name="expiration-time", id="expiration-time--1", data-expiration-minutes="1")
-          | 1 Minute
-        label.btn.btn-default
-          input(type="radio", name="expiration-time", id="expiration-time--5", data-expiration-minutes="5")
-          | 5 Minutes
-        label.btn.btn-default
-          input(type="radio", name="expiration-time", id="expiration-time--10", data-expiration-minutes="10") 
-          | 10 Minutes
-        label.btn.btn-default.active
-          input(type="radio", name="expiration-time", id="expiration-time--15", data-expiration-minutes="15") 
-          | 15 Minutes
-  .row-fluid
-    .col-12
-      .btn.btn-primary.js-submit Submit
-  if locals.existingRecords
-    .row-fluid
-      .col-12
-        ul.list-group.current-records
-          each record in existingRecords
-            li.list-group-item.record(data-hash=record.hash)
-              span.badge.clear-record clear
-              a(href="/" + record.hash)= 'localhost:5000/' + record.hash
-              br
-              if record.expirationTimePretty
-                em.text-muted= "Expires: " + record.expirationTimePretty
+  .row
+    .page-header.col-lg-12 
+      h1 guardthis.info
+  if locals.foundRecord
+    .row.found-record.js-record.js-dismiss-target(data-hash=foundRecord.hash)
+      .col-lg-12 
+        if foundRecord == 'not found'
+          h3.found-record__title Sorry, your link has expired
+          .btn.btn-default.js-dismiss Dismiss
+        else
+          h2.found-record__title Your Secure Info:
+          .well= foundRecord.text
+          
+          .btn.btn-default.js-clear-record Delete
+          if foundRecord.expirationTimePretty
+            em.found-record__expiration= "Expires: " + foundRecord.expirationTimePretty
+
+
+  .row
+    section.col-lg-4.site-info oh, herro!
+    section.col-lg-8.app
+      .row
+        .col-lg-12
+          textarea.secure-text.form-control(placeholder="Paste text here", rows="4")
+          .buttons
+          .btn-group.expiration-time-buttons.pull-left(data-toggle="buttons")
+            label.btn.btn-default.btn-large
+              input(type="radio", name="expiration-time", id="expiration-time--1", data-expiration-minutes="1")
+              | 1 Minute
+            label.btn.btn-default.btn-large
+              input(type="radio", name="expiration-time", id="expiration-time--5", data-expiration-minutes="5")
+              | 5 Minutes
+            label.btn.btn-default.btn-large
+              input(type="radio", name="expiration-time", id="expiration-time--10", data-expiration-minutes="10") 
+              | 10 Minutes
+            label.btn.btn-default.btn-large.active
+              input(type="radio", name="expiration-time", id="expiration-time--15", data-expiration-minutes="15") 
+              | 15 Minutes
+          .btn.btn-primary.pull-right.btn-large.js-submit Submit
+          
+      if locals.existingRecords
+        .row
+          .col-lg-12
+            ul.list-group.current-records
+              each record in existingRecords
+                li.list-group-item.record.js-record(data-hash=record.hash)
+                  span.badge.clear-record.js-clear-record clear
+                  a(href="/" + record.hash)= 'localhost:5000/' + record.hash
+                  br
+                  if record.expirationTimePretty
+                    em.text-muted= "Expires: " + record.expirationTimePretty
 
 block bodyscripts

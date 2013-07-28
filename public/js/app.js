@@ -1,9 +1,9 @@
 (function() {
-  var buildLink, clearRecordCallback, newRecordCallback, templates;
+  var bindClearRecordCallback, buildLink, clearRecordCallback, newRecordCallback, templates;
 
   templates = {
     record: buildLink = function(data) {
-      return '<li class="list-group-item record" style="display:none;"><span class="badge clear-record">clear</span><a href="/' + data.hash + '">localhost:5000/' + data.hash + '</a><br><em class="text-muted">Expires: ' + data.expirationTimePretty + '</em></li>';
+      return '<li data-hash="' + data.hash + '" class="list-group-item record js-record" style="display:none;"><span class="badge clear-record js-clear-record">clear</span><a href="/' + data.hash + '">localhost:5000/' + data.hash + '</a><br><em class="text-muted">Expires: ' + data.expirationTimePretty + '</em></li>';
     }
   };
 
@@ -12,7 +12,9 @@
     if (status === "success") {
       newRecord = $(templates.record(data));
       $('.current-records').prepend(newRecord);
-      return newRecord.slideDown();
+      newRecord.slideDown();
+      $('.js-submit').attr('disabled', false);
+      return bindClearRecordCallback();
     } else {
       return console.log("error saving record");
     }
@@ -26,32 +28,53 @@
     }
   };
 
-  $('.clear-record').on('click', function(e) {
-    var record;
-    record = $(e.target).closest('.record');
-    record.slideUp();
-    return $.ajax({
-      type: "POST",
-      url: "/delete/" + record.attr('data-hash'),
-      success: clearRecordCallback,
-      error: clearRecordCallback
-    });
+  $('.js-dismiss').on('click', function(e) {
+    var target;
+    target = $(e.target).closest('.js-dismiss-target');
+    return target.slideUp();
   });
+
+  bindClearRecordCallback = function() {
+    $('.js-clear-record').off;
+    return $('.js-clear-record').on('click', function(e) {
+      var record;
+      record = $(e.target).closest('.js-record');
+      record.slideUp(function() {
+        return record.remove();
+      });
+      return $.ajax({
+        type: "POST",
+        url: "/delete/" + record.attr('data-hash'),
+        success: clearRecordCallback,
+        error: clearRecordCallback
+      });
+    });
+  };
+
+  bindClearRecordCallback();
 
   $('.js-submit').on('click.submit', function() {
     var expirationMinutes, text;
     expirationMinutes = $('.expiration-time-buttons .active input').attr('data-expiration-minutes');
-    text = $('.secure-text').val();
-    return $.ajax({
-      type: "POST",
-      url: "/",
-      data: {
-        text: text,
-        expirationMinutes: expirationMinutes
-      },
-      success: newRecordCallback,
-      error: newRecordCallback
-    });
+    text = $('.secure-text').val().trim();
+    if (text.length === 0) {
+      $('.secure-text').addClass('bounce');
+      return setTimeout((function() {
+        return $('.secure-text').removeClass('bounce');
+      }), 2000);
+    } else {
+      $('.js-submit').attr('disabled', true);
+      return $.ajax({
+        type: "POST",
+        url: "/",
+        data: {
+          text: text,
+          expirationMinutes: expirationMinutes
+        },
+        success: newRecordCallback,
+        error: newRecordCallback
+      });
+    }
   });
 
 }).call(this);

@@ -2,7 +2,7 @@ mongoose = require 'mongoose'
 moment = require 'moment'
 
 formatTime = (time) ->
-  moment(time).format('MMM Mo @ h:mmA')
+  moment(time).format('MMM Do @ h:mmA')
 
 recordSchema = new mongoose.Schema
   text: 

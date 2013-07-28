@@ -1,5 +1,6 @@
 @import "nib"
 @import "bootstrap.min.css"
+@import "animations.css"
 
 // ----------------------------------------------------------------------------
 // Styles
@@ -8,6 +9,25 @@
 html, body
   margin 0
   padding 0
+
+.app, .site-info
+  padding-top: 50px
+
+.buttons
+  margin-top: 15px
+
+.current-records
+  margin-top: 30px
+
+.found-record
+  padding-top: 20px
+  padding-bottom: 40px
+  background-color: #428BCA
+  border-left: 6px solid #18558A
+  .found-record__title, .found-record__expiration
+    color: #FFF
+  .found-record__expiration
+    padding-left: 20px;
 
 .clear-record
   cursor: pointer
