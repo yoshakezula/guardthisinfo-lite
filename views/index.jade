@@ -1,7 +1,29 @@
 extends layout
 
 block content
-  .span12
+  .row-fluid
+    .col-12 
+      textarea.secure-text.text-input(placeholder="Paste text here")
+  .row-fluid
+    .col-12
+      .btn-group.expiration-time-buttons(data-toggle="buttons")
+        label.btn.btn-default
+          input(type="radio", name="expiration-time", id="expiration-time--5", data-expiration-minutes="5")
+          | 5 Minutes
+        label.btn.btn-default
+          input(type="radio", name="expiration-time", id="expiration-time--10", data-expiration-minutes="10") 
+          | 10 Minutes
+        label.btn.btn-default.active
+          input(type="radio", name="expiration-time", id="expiration-time--15", data-expiration-minutes="15") 
+          | 15 Minutes
+  .row-fluid
+    .col-12
+      .btn.btn-primary.js-submit Submit
+  .row-fluid
+    .col-12
+      .well
+        small Your link:
+        .secure-link Test
 
 
 block bodyscripts
