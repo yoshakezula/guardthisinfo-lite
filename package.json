@@ -1,0 +1,26 @@
+{
+  "name": "guardthisinfo",
+  "author": "Kenny Chan",
+  "version": "0.1.0",
+  "main": "server.coffee",
+  "repository": "git@github.com:yoshakezula/guardthisinfo.git",
+  "engines": {
+    "node": "0.10.x",
+    "npm": "1.2.x"
+  },
+  "dependencies": {
+    "coffee-script": "1.6.x",
+    "express": "~3.1.2",
+    "jade": "0.28.x",
+    "stylus": "0.32.x",
+    "nib": "0.9.x",
+    "request": "2.16.x"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-coffee": "~0.7.0",
+    "grunt-contrib-requirejs": "~0.4.1",
+    "grunt-contrib-stylus": "~0.6.0",
+    "async": "~0.2.9"
+  }
+}
