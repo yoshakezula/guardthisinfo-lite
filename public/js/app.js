@@ -3,7 +3,7 @@
 
   templates = {
     record: buildLink = function(data) {
-      return '<li data-hash="' + data.hash + '" class="list-group-item record js-record" style="display:none;"><span class="badge clear-record js-clear-record">clear</span><a href="/' + data.hash + '" class="record__url">guardthis.info/' + data.hash + '</a><br><em class="text-muted js-expiration__wrapper expiration__wrapper">Expires in <span class="expiration__minutes js-expiration__minutes">' + data.expirationMinutes + '</span>&nbsp;min</em></li>';
+      return '<li data-hash="' + data.hash + '" class="list-group-item record js-record" style="display:none;"><span class="badge clear-record js-clear-record">delete</span><a href="/' + data.hash + '" class="record__url">guardthis.info/' + data.hash + '</a><br><em class="text-muted js-expiration__wrapper expiration__wrapper">Expires in <span class="expiration__minutes js-expiration__minutes">' + data.expirationMinutes + '</span>&nbsp;min</em></li>';
     }
   };
 
