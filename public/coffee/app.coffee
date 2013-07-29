@@ -1,6 +1,6 @@
 templates = 
   record: buildLink = (data) ->
-    '<li data-hash="' + data.hash + '" class="list-group-item record js-record" style="display:none;"><span class="badge clear-record js-clear-record">clear</span><a href="/'+ data.hash + '">guardthis.info/' + data.hash + '</a><br><em class="text-muted expiration__wrapper">Expires in <span class="expiration__minutes">' + data.expirationMinutes + '</span>&nbsp;min</em></li>'
+    '<li data-hash="' + data.hash + '" class="list-group-item record js-record" style="display:none;"><span class="badge clear-record js-clear-record">clear</span><a href="/'+ data.hash + '" class="record__url">guardthis.info/' + data.hash + '</a><br><em class="text-muted js-expiration__wrapper expiration__wrapper">Expires in <span class="expiration__minutes js-expiration__minutes">' + data.expirationMinutes + '</span>&nbsp;min</em></li>'
 
 newRecordCallback = (data, status, xhr) -> 
   if status == "success" && !data.error
@@ -10,6 +10,7 @@ newRecordCallback = (data, status, xhr) ->
     $('.current-records').prepend newRecord
     newRecord.slideDown()
     $('.js-submit').attr 'disabled', false
+    startExpirationCounter $(newRecord).find('.js-expiration__minutes')[0]
     bindClearRecordCallback()
   else
     console.log "error saving record"
@@ -23,6 +24,24 @@ clearRecordCallback = (data, status, xhr) ->
 $('.js-dismiss').on 'click', (e) ->
   target = $(e.target).closest '.js-dismiss-target'
   target.slideUp()
+
+startExpirationCounter = (expirationSpan) ->
+  setInterval (() ->
+    min = expirationSpan.textContent
+    if parseInt(min) > 1
+      expirationSpan.textContent = min - 1
+    else
+      recordWrapper = $(expirationSpan).closest('.js-record')
+      recordWrapper.find('a').after('<em class="text-muted">guardthis.info/' + recordWrapper.attr('data-hash') + '</em>').remove()
+      $(expirationSpan).closest('.js-expiration__wrapper').html "Expired"
+      min = undefined
+  ), 60000
+
+expirationSpans = $('.js-expiration__minutes')
+expirationSpanHash = {}
+for expirationSpan in expirationSpans
+  do (expirationSpan) ->
+    startExpirationCounter(expirationSpan)
 
 bindClearRecordCallback = () ->
   $('.js-clear-record').off

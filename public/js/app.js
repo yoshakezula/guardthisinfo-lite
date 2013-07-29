@@ -1,9 +1,9 @@
 (function() {
-  var bindClearRecordCallback, buildLink, clearRecordCallback, newRecordCallback, templates;
+  var bindClearRecordCallback, buildLink, clearRecordCallback, expirationSpan, expirationSpanHash, expirationSpans, newRecordCallback, startExpirationCounter, templates, _fn, _i, _len;
 
   templates = {
     record: buildLink = function(data) {
-      return '<li data-hash="' + data.hash + '" class="list-group-item record js-record" style="display:none;"><span class="badge clear-record js-clear-record">clear</span><a href="/' + data.hash + '">guardthis.info/' + data.hash + '</a><br><em class="text-muted expiration__wrapper">Expires in <span class="expiration__minutes">' + data.expirationMinutes + '</span>&nbsp;min</em></li>';
+      return '<li data-hash="' + data.hash + '" class="list-group-item record js-record" style="display:none;"><span class="badge clear-record js-clear-record">clear</span><a href="/' + data.hash + '" class="record__url">guardthis.info/' + data.hash + '</a><br><em class="text-muted js-expiration__wrapper expiration__wrapper">Expires in <span class="expiration__minutes js-expiration__minutes">' + data.expirationMinutes + '</span>&nbsp;min</em></li>';
     }
   };
 
@@ -16,6 +16,7 @@
       $('.current-records').prepend(newRecord);
       newRecord.slideDown();
       $('.js-submit').attr('disabled', false);
+      startExpirationCounter($(newRecord).find('.js-expiration__minutes')[0]);
       return bindClearRecordCallback();
     } else {
       return console.log("error saving record");
@@ -35,6 +36,33 @@
     target = $(e.target).closest('.js-dismiss-target');
     return target.slideUp();
   });
+
+  startExpirationCounter = function(expirationSpan) {
+    return setInterval((function() {
+      var min, recordWrapper;
+      min = expirationSpan.textContent;
+      if (parseInt(min) > 1) {
+        return expirationSpan.textContent = min - 1;
+      } else {
+        recordWrapper = $(expirationSpan).closest('.js-record');
+        recordWrapper.find('a').after('<em class="text-muted">guardthis.info/' + recordWrapper.attr('data-hash') + '</em>').remove();
+        $(expirationSpan).closest('.js-expiration__wrapper').html("Expired");
+        return min = void 0;
+      }
+    }), 60000);
+  };
+
+  expirationSpans = $('.js-expiration__minutes');
+
+  expirationSpanHash = {};
+
+  _fn = function(expirationSpan) {
+    return startExpirationCounter(expirationSpan);
+  };
+  for (_i = 0, _len = expirationSpans.length; _i < _len; _i++) {
+    expirationSpan = expirationSpans[_i];
+    _fn(expirationSpan);
+  }
 
   bindClearRecordCallback = function() {
     $('.js-clear-record').off;

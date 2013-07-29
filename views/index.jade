@@ -16,15 +16,15 @@ block content
             .well= foundRecord.text
             
             .btn.btn-default.js-clear-record Delete
-            em.expiration__wrapper
+            em.js-expiration__wrapper.expiration__wrapper
               |Expires in 
-              span.expiration__minutes= timeLeft
+              span.expiration__minutes.js-expiration__minutes= timeLeft
               |&nbsp;min
 
 
   .row
     section.col-lg-4.site-info 
-      .site-info__tagline A better way to temporarily share stuff
+      .site-info__tagline A better way to temporarily share info
     section.col-lg-8
       .row.app__row
         .col-lg-12
@@ -53,18 +53,18 @@ block content
           ul.list-group.current-records
             each record in existingRecords
               li.list-group-item.record.js-record(data-hash=record.hash)
-                span.badge.clear-record.js-clear-record clear
+                span.badge.clear-record.js-clear-record delete
                 if record.timeLeft <= 0
-                  em.text-muted= 'guardthis.info/' + record.hash
+                  em.record__url.text-muted= 'guardthis.info/' + record.hash
                 else
-                  a(href="/" + record.hash)= 'guardthis.info/' + record.hash
+                  a.record__url(href="/" + record.hash)= 'guardthis.info/' + record.hash
                 br
-                em.text-muted.expiration__wrapper
+                em.text-muted.js-expiration__wrapper.expiration__wrapper
                   if record.timeLeft <= 0
                     |Expired
                   else
                     |Expires in 
-                    span.expiration__minutes= record.timeLeft
+                    span.expiration__minutes.js-expiration__minutes= record.timeLeft
                     |&nbsp;min
 
 block bodyscripts
