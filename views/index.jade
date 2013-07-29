@@ -55,9 +55,9 @@ block content
               li.list-group-item.record.js-record(data-hash=record.hash)
                 span.badge.clear-record.js-clear-record delete
                 if record.timeLeft <= 0
-                  em.record__url.text-muted= 'guardthis.info/' + record.hash
+                  em.record__url.text-muted= 'www.guardthis.info/' + record.hash
                 else
-                  a.record__url(href="/" + record.hash)= 'guardthis.info/' + record.hash
+                  a.record__url(href="/" + record.hash)= 'www.guardthis.info/' + record.hash
                 br
                 em.text-muted.js-expiration__wrapper.expiration__wrapper
                   if record.timeLeft <= 0

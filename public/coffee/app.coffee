@@ -1,6 +1,6 @@
 templates = 
   record: buildLink = (data) ->
-    '<li data-hash="' + data.hash + '" class="list-group-item record js-record" style="display:none;"><span class="badge clear-record js-clear-record">delete</span><a href="/'+ data.hash + '" class="record__url">guardthis.info/' + data.hash + '</a><br><em class="text-muted js-expiration__wrapper expiration__wrapper">Expires in <span class="expiration__minutes js-expiration__minutes">' + data.expirationMinutes + '</span>&nbsp;min</em></li>'
+    '<li data-hash="' + data.hash + '" class="list-group-item record js-record" style="display:none;"><span class="badge clear-record js-clear-record">delete</span><a href="/'+ data.hash + '" class="record__url">www.guardthis.info/' + data.hash + '</a><br><em class="text-muted js-expiration__wrapper expiration__wrapper">Expires in <span class="expiration__minutes js-expiration__minutes">' + data.expirationMinutes + '</span>&nbsp;min</em></li>'
 
 newRecordCallback = (data, status, xhr) -> 
   if status == "success" && !data.error
@@ -32,7 +32,7 @@ startExpirationCounter = (expirationSpan) ->
       expirationSpan.textContent = min - 1
     else
       recordWrapper = $(expirationSpan).closest('.js-record')
-      recordWrapper.find('a').after('<em class="text-muted">guardthis.info/' + recordWrapper.attr('data-hash') + '</em>').remove()
+      recordWrapper.find('a').after('<em class="text-muted">www.guardthis.info/' + recordWrapper.attr('data-hash') + '</em>').remove()
       $(expirationSpan).closest('.js-expiration__wrapper').html "Expired"
       min = undefined
   ), 60000
