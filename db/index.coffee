@@ -1,8 +1,5 @@
 mongoose = require 'mongoose'
-moment = require 'moment'
 
-formatTime = (time) ->
-  moment(time).format('MMM Do @ h:mmA')
 
 textValidator = (v) -> v.length < 1000
 
@@ -20,7 +17,6 @@ recordSchema = new mongoose.Schema
   auth_token:
     type: String
     required: true
-    unique: true
     index: true
   hash: 
     type: String
@@ -30,9 +26,6 @@ recordSchema = new mongoose.Schema
   expirationTime:
     type: Date
     required: true
-  expirationTimePretty:
-    type: String
-    set: formatTime
   expired:
     type: Boolean
     default: false

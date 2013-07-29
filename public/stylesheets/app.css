@@ -11,8 +11,8 @@ body,h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6{font-family:"Ubuntu","Helvetica N
 .buttons{margin-top:10px}
 .current-records__header{margin-top:40px}
 .found-record{padding:20px 20px 40px 20px;margin-bottom:20px;background-color:#428bca;border-left:6px solid #18558a;}
-.found-record .found-record__title,.found-record .found-record__expiration{color:#fff}
-.found-record .found-record__expiration{padding-left:20px}
+.found-record .found-record__title,.found-record .expiration__wrapper{color:#fff}
+.found-record .expiration__wrapper{padding-left:20px}
 .clear-record{cursor:pointer}
 @media (max-width:500px){.submit-record{float:none;margin-top:5px;width:100%}
 .expiration-time-buttons{width:100%;}

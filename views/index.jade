@@ -16,13 +16,15 @@ block content
             .well= foundRecord.text
             
             .btn.btn-default.js-clear-record Delete
-            if foundRecord.expirationTimePretty
-              em.found-record__expiration= "Expires: " + foundRecord.expirationTimePretty
+            em.expiration__wrapper
+              |Expires in 
+              span.expiration__minutes= timeLeft
+              |&nbsp;min
 
 
   .row
     section.col-lg-4.site-info 
-      .site-info__tagline A better way to temporarily share short pieces of text
+      .site-info__tagline A better way to temporarily share stuff
     section.col-lg-8
       .row.app__row
         .col-lg-12
@@ -42,19 +44,27 @@ block content
                 label.btn.btn-default.btn-large.active
                   input(type="radio", name="expiration-time", id="expiration-time--15", data-expiration-minutes="15") 
                   | 15 min
-              .btn.btn-primary.pull-right.btn-large.js-submit.submit-record Submit
+              .btn.btn-primary.pull-right.btn-large.js-submit.submit-record Get link
               .clearfix
           
       .row.current-records__wrapper(style=(locals.existingRecords && locals.existingRecords.length > 0) ? "" : "display:none;")
         .col-lg-12
-          h4.current-records__header Previous links
+          h4.current-records__header Links
           ul.list-group.current-records
             each record in existingRecords
               li.list-group-item.record.js-record(data-hash=record.hash)
                 span.badge.clear-record.js-clear-record clear
-                a(href="/" + record.hash)= 'guardthis.info/' + record.hash
+                if record.timeLeft <= 0
+                  em.text-muted= 'guardthis.info/' + record.hash
+                else
+                  a(href="/" + record.hash)= 'guardthis.info/' + record.hash
                 br
-                if record.expirationTimePretty
-                  em.text-muted= "Expires: " + record.expirationTimePretty
+                em.text-muted.expiration__wrapper
+                  if record.timeLeft <= 0
+                    |Expired
+                  else
+                    |Expires in 
+                    span.expiration__minutes= record.timeLeft
+                    |&nbsp;min
 
 block bodyscripts

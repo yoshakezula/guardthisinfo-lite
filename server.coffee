@@ -52,47 +52,56 @@ authenticate = (req, res, next) ->
 
 findRecords = (req, res, next) ->
   query = schema.Record.find {auth_token: req.signedCookies.auth_token}
-  query.select 'hash expirationTimePretty'
+  query.select 'hash expirationTime'
+  query.sort {expirationTime: -1}
   query.exec (err, result) ->
     if err
       console.log 'error looking up existing records for auth_token ' + req.signedCookies.auth_token
     else
+      for record in result
+        do (record) ->
+          record.timeLeft = parseInt (record.expirationTime - new Date()) / 60000
       res.locals.existingRecords = result
     next()
 
 app.get '/', authenticate, findRecords, (req, res) -> 
-  console.log res.locals
   res.render 'index'
 
 app.get '/:hash', authenticate, findRecords, (req, res) ->
   query = schema.Record.findOne {hash: req.params.hash}
   query.where('expirationTime').gt(new Date())
-  query.select 'text hash expirationTime expirationTimePretty'
+  query.select 'text hash expirationTime'
   query.exec (err, result) ->
-    console.log result
-    res.render 'index', foundRecord: if (err || result == null) then 'not found' else result
+    if err || result == null
+      console.log 'error finding record with hash: ' + req.params.hash
+      if err then console.log err
+      res.render 'index', { foundRecord: 'not found'}
+    else
+      res.render 'index', 
+        foundRecord: if (err || result == null) then 'not found' else result
+        timeLeft: parseInt (result.expirationTime - new Date()) / 60000
 
 app.post '/', authenticate, (req, res) ->
   reqBody = req.body
   expirationTime = new Date()
-  console.log expirationTime
   expirationTime.setMinutes(expirationTime.getMinutes() + parseInt reqBody.expirationMinutes)
-  console.log expirationTime
   newRecord = new schema.Record
     text: reqBody.text
     expirationMinutes: parseInt reqBody.expirationMinutes
     hash: crypto.randomBytes(20).toString('hex')
     auth_token: req.signedCookies.auth_token
     expirationTime: expirationTime
-    expirationTimePretty: expirationTime
   newRecord.save (err) -> 
     if err 
       console.log 'error saving record:', newRecord.hash
+      console.log err
       res.send { error: err }
     else
       console.log 'new record saved with hash ' + newRecord.hash
-      console.log newRecord
-      res.send {hash: newRecord.hash, expirationTimePretty: newRecord.expirationTimePretty}
+      res.send
+        hash: newRecord.hash
+        expirationMinutes: newRecord.expirationMinutes
+        timeLeft: parseInt (newRecord.expirationTime - new Date()) / 60000
 
 app.post '/delete/:hash', authenticate, (req, res) ->
   query = schema.Record.findOneAndRemove {hash: req.params.hash}

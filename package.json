@@ -17,7 +17,6 @@
     "request": "2.16.x",
     "mongoose": "~3.6.15",
     "connect-mongo": "~0.3.3",
-    "moment": "~2.1.0"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
