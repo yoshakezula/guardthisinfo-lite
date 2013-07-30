@@ -13,8 +13,10 @@ body,h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6{font-family:"Ubuntu","Helvetica N
 .found-record{padding:20px 20px 40px 20px;margin-bottom:20px;background-color:#428bca;border-left:6px solid #18558a;}
 .found-record .found-record__title,.found-record .expiration__wrapper{color:#fff}
 .found-record .expiration__wrapper{padding-left:20px}
-.record--highlighted{background-color:#00529c}
-.record{-webkit-transition:2s background-color;-moz-transition:2s background-color;-o-transition:2s background-color;-ms-transition:2s background-color;transition:2s background-color}
+.record--highlighted{background-color:#00529c;}
+.record--highlighted a{color:#fff}
+.record{-webkit-transition:1.5s background-color;-moz-transition:1.5s background-color;-o-transition:1.5s background-color;-ms-transition:1.5s background-color;transition:1.5s background-color;}
+.record a{-webkit-transition:1s color;-moz-transition:1s color;-o-transition:1s color;-ms-transition:1s color;transition:1s color}
 .clear-record{cursor:pointer}
 @media (max-width:500px){.submit-record{float:none;margin-top:5px;width:100%}
 .expiration-time-buttons{width:100%;}
