@@ -1,14 +1,25 @@
 templates = 
   record: buildLink = (data) ->
-    '<li data-hash="' + data.hash + '" class="list-group-item record js-record" style="display:none;"><span class="badge clear-record js-clear-record">delete</span><a href="/'+ data.hash + '" class="record__url">www.guardthis.info/' + data.hash + '</a><br><em class="text-muted js-expiration__wrapper expiration__wrapper">Expires in <span class="expiration__minutes js-expiration__minutes">' + data.expirationMinutes + '</span>&nbsp;min</em></li>'
+    '<li data-hash="' + data.hash + '" class="list-group-item record record--highlighted js-record" style="display:none;"><span class="badge clear-record js-clear-record">delete</span><a href="/'+ data.hash + '" class="record__url">www.guardthis.info/' + data.hash + '</a><br><em class="text-muted js-expiration__wrapper expiration__wrapper">Expires in <span class="expiration__minutes js-expiration__minutes">' + data.expirationMinutes + '</span>&nbsp;min</em></li>'
+
+scrollToNewRecord = (record) ->
+  recordBottom = record.offset().top + record.height()
+  scrollBottom = window.innerHeight + window.scrollY
+  if scrollBottom < recordBottom
+    $('body').animate({scrollTop: recordBottom - window.innerHeight + 30})
+
 
 newRecordCallback = (data, status, xhr) -> 
   if status == "success" && !data.error
     $('.current-records__wrapper').slideDown()
     $('.secure-text').val('')
+    
     newRecord = $(templates.record(data))
     $('.current-records').prepend newRecord
-    newRecord.slideDown()
+    newRecord.slideDown -> 
+      scrollToNewRecord(newRecord)
+      newRecord.removeClass 'record--highlighted'
+
     $('.js-submit').attr 'disabled', false
     startExpirationCounter $(newRecord).find('.js-expiration__minutes')[0]
     bindClearRecordCallback()
@@ -32,7 +43,7 @@ startExpirationCounter = (expirationSpan) ->
       expirationSpan.textContent = min - 1
     else
       recordWrapper = $(expirationSpan).closest('.js-record')
-      recordWrapper.find('a').after('<em class="text-muted">www.guardthis.info/' + recordWrapper.attr('data-hash') + '</em>').remove()
+      recordWrapper.find('a').after('<em class="text-muted record__url">www.guardthis.info/' + recordWrapper.attr('data-hash') + '</em>').remove()
       $(expirationSpan).closest('.js-expiration__wrapper').html "Expired"
       min = undefined
   ), 60000
