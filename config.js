@@ -1,9 +1,9 @@
 var require = {
   paths: {
-    jquery: "libs/jquery/jquery-2.0.3.min",
+    jquery: "libs/jquery-2.0.3.min",
     app: 'app',
     modernizr: 'libs/modernizr.custom.min',
-    bootstrap: 'libs/bootstrap.min.js'
+    bootstrap: 'libs/bootstrap.min'
   },
 
   shim: {
@@ -11,7 +11,7 @@ var require = {
     modernizr: {
       exports: 'Modernizr'
     },
-    app: ['modernizr']
+    app: ['modernizr', 'jquery', 'bootstrap']
   },
 
   preserveLicenseComments: false,

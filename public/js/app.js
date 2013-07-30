@@ -39,7 +39,7 @@
 
   clearRecordCallback = function(data, status, xhr) {
     if (status === "success") {
-      return console.log('deleted', data, status);
+      return console.log('deleted');
     } else {
       return console.log("error saving record");
     }

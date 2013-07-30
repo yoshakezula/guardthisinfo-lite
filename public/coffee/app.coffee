@@ -28,7 +28,7 @@ newRecordCallback = (data, status, xhr) ->
 
 clearRecordCallback = (data, status, xhr) ->
   if status == "success"
-    console.log 'deleted', data, status
+    console.log 'deleted'
   else
     console.log "error saving record"
 
