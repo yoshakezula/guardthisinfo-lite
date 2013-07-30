@@ -5,7 +5,7 @@ body{background-image:url("../img/groovepaper.png")}
 body,h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6{font-family:"Ubuntu","Helvetica Neue",Helvetica,Arial,sans-serif !important}
 .page-header{margin-top:20px;}
 .page-header h1{font-weight:700;font-size:54px;display:inline-block;border:8px solid #333;padding:5px;letter-spacing:-.0625em}
-.app__row,.site-info,.app{padding-top:20px}
+.app__wrapper,.site-info,.app{padding-top:20px}
 .app{padding-bottom:30px;background-color:rgba(0,0,0,0.1);padding-left:20px;padding-right:20px}
 .site-info__tagline{font-size:30px;font-weight:500;color:#555;text-shadow:1px 1px #ccc}
 .buttons{margin-top:10px}
@@ -24,4 +24,6 @@ body,h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6{font-family:"Ubuntu","Helvetica N
 }@media (max-width:600px){.record__url{overflow:hidden;max-width:200px;display:inline-block;-o-text-overflow:ellipsis;text-overflow:ellipsis}
 }@media (max-width: 480px){.found-record__title{font-size:26px}
 .page-header{margin-top:0}
+.app__wrapper{padding-left:0;padding-right:0}
+.app{padding-left:15px;padding-right:15px}
 }

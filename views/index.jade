@@ -25,9 +25,10 @@ block content
   .row
     section.col-lg-4.site-info 
       .site-info__tagline A better way to temporarily share info
+      a.site-info__contact(href="mailto:info@guardthis.info", target="_blank") contact
     section.col-lg-8
-      .row.app__row
-        .col-lg-12
+      .row
+        .col-lg-12.app__wrapper
           .app
             textarea.secure-text.form-control(placeholder="Paste text here", rows="4", maxlength="1000")
             .buttons
