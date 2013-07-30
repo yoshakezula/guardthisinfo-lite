@@ -17,7 +17,7 @@ module.exports = (grunt) ->
         options:
           "include css": true
         files:
-          'public/stylesheets/app.css' : 'public/stylesheets/app.styl'
+          'public/stylesheets/compiled.css' : 'public/stylesheets/app.styl'
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-requirejs'
   grunt.loadNpmTasks 'grunt-contrib-stylus'
