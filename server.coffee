@@ -106,7 +106,7 @@ app.post '/', authenticate, (req, res) ->
 app.post '/delete/:hash', authenticate, (req, res) ->
   query = schema.Record.findOneAndRemove {hash: req.params.hash}
   query.exec (err, result) ->
-    if err 
+    if err  || !result
       console.log 'record to delete not found: ' + req.params.hash 
       res.send {errors: 'record not found'}
     else
