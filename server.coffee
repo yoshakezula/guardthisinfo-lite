@@ -25,7 +25,12 @@ app.configure () ->
     app.use stylus.middleware
       src: __dirname + '/public'
       compile: stylusCompile
-
+  if 'production' == app.get 'env'
+    app.use forceSsl(req, res, next) ->
+      if req.header 'x-forwarded-proto' != 'https'
+        res.redirect "https://#{req.header 'host'}#{req.url}"
+      else
+        next()
   app.set 'views', __dirname + '/views'
   app.set 'view engine', 'jade'
   app.use express.favicon __dirname + '/public/img/favicon.png'
