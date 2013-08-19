@@ -26,7 +26,7 @@ app.configure () ->
       src: __dirname + '/public'
       compile: stylusCompile
   if 'production' == app.get 'env'
-    app.use forceSsl(req, res, next) ->
+    app.use (req, res, next) ->
       if req.header 'x-forwarded-proto' != 'https'
         res.redirect "https://#{req.header 'host'}#{req.url}"
       else
