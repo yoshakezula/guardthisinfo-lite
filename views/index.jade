@@ -24,13 +24,13 @@ block content
 
   .row
     section.col-lg-4.site-info 
-      .site-info__tagline A better way to temporarily share info
+      .site-info__tagline Share data for 10 minutes, and then it's gone! It's like snapchat for passwords.
       a.site-info__contact(href="mailto:info@guardthis.info", target="_blank") contact
     section.col-lg-8
       .row
         .col-lg-12.app__wrapper
-          .app
-            textarea.secure-text.form-control(placeholder="Paste text here", rows="4", maxlength="1000")
+          form.app
+            textarea.secure-text.form-control(placeholder="Paste text here", rows="4", maxlength="1000", tabindex="1")
             .buttons
               .btn-group.expiration-time-buttons.pull-left(data-toggle="buttons")
                 label.btn.btn-default.btn-large
@@ -45,7 +45,7 @@ block content
                 label.btn.btn-default.btn-large
                   input(type="radio", name="expiration-time", id="expiration-time--60", data-expiration-minutes="60")
                   | 60 min
-              .btn.btn-primary.pull-right.btn-large.js-submit.submit-record Get link
+              input.btn.btn-primary.pull-right.btn-large.js-submit.submit-record(tabindex="2", type="submit") Get link
               .clearfix
           
       .row.current-records__wrapper(style=(locals.existingRecords && locals.existingRecords.length > 0) ? "" : "display:none;")
