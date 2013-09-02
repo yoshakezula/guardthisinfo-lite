@@ -8,7 +8,8 @@ body,h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6{font-family:"Ubuntu","Helvetica N
 .app__wrapper,.site-info,.app{padding-top:20px}
 .app{padding-bottom:20px;background-color:#ddd;padding-left:20px;padding-right:20px;-webkit-border-radius:3px;border-radius:3px;border:1px solid #ccc;border-bottom-width:4px;border-bottom-color:#3071a9}
 .btn.active{border:4px solid #3071a9;margin-top:-2px;-webkit-border-radius:3px !important;border-radius:3px !important}
-.tagline{font-size:30px;font-weight:500;text-shadow:1px 1px #aaa;line-height:1.2;margin-bottom:20px}
+.tagline{font-size:30px;font-weight:500;text-shadow:1px 1px #aaa;line-height:1.2}
+.contact{margin-bottom:20px}
 .buttons{margin-top:10px}
 .current-records__header{margin-top:40px}
 .found-record{padding:20px 20px 40px 20px;margin-bottom:20px;background-color:#428bca;border-left:6px solid #18558a;}
