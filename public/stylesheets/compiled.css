@@ -3660,7 +3660,7 @@ body,h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6{font-family:"Ubuntu","Helvetica N
 .record{-webkit-transition:1.5s background-color;-moz-transition:1.5s background-color;-o-transition:1.5s background-color;-ms-transition:1.5s background-color;transition:1.5s background-color;}
 .record a{-webkit-transition:1s color;-moz-transition:1s color;-o-transition:1s color;-ms-transition:1s color;transition:1s color}
 .clear-record{cursor:pointer}
-.site-info__faq{-webkit-transition:max-height .5s;-moz-transition:max-height .5s;-o-transition:max-height .5s;-ms-transition:max-height .5s;transition:max-height .5s;max-height:150px;overflow:hidden;margin-bottom:20px;position:relative;}
+.site-info__faq{-webkit-transition:max-height .5s;-moz-transition:max-height .5s;-o-transition:max-height .5s;-ms-transition:max-height .5s;transition:max-height .5s;max-height:180px;overflow:hidden;margin-bottom:20px;position:relative;}
 .site-info__faq.expanded{max-height:500px;}
 .site-info__faq.expanded .site-info__faq__item__answer{white-space:normal}
 .site-info__faq.expanded .site-info__faq__item__question{color:#333}
