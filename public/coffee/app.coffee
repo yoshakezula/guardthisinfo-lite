@@ -69,6 +69,11 @@ bindClearRecordCallback()
 
 $('.app').on 'submit', (e) -> e.preventDefault()
 
+$('.js-site-info__faq__show-more').on 'click', ->
+  $('.site-info__faq').addClass 'expanded'
+  $('.js-site-info__faq__show-more').remove()
+
+
 $('.js-submit').on 'click.submit', ->
   expirationMinutes = $('.expiration-time-buttons .active input').attr('data-expiration-minutes')
   text = $('.secure-text').val().trim()

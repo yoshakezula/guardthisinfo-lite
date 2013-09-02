@@ -8,7 +8,7 @@ body,h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6{font-family:"Ubuntu","Helvetica N
 .app__wrapper,.site-info,.app{padding-top:20px}
 .app{padding-bottom:20px;background-color:#ddd;padding-left:20px;padding-right:20px;-webkit-border-radius:3px;border-radius:3px;border:1px solid #ccc;border-bottom-width:4px;border-bottom-color:#3071a9}
 .btn.active{border:4px solid #3071a9;margin-top:-2px;-webkit-border-radius:3px !important;border-radius:3px !important}
-.site-info__tagline{font-size:30px;font-weight:500;color:#555;text-shadow:1px 1px #ccc}
+.tagline{font-size:30px;font-weight:500;text-shadow:1px 1px #aaa;line-height:1.2;margin-bottom:20px}
 .buttons{margin-top:10px}
 .current-records__header{margin-top:40px}
 .found-record{padding:20px 20px 40px 20px;margin-bottom:20px;background-color:#428bca;border-left:6px solid #18558a;}
@@ -19,12 +19,21 @@ body,h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6{font-family:"Ubuntu","Helvetica N
 .record{-webkit-transition:1.5s background-color;-moz-transition:1.5s background-color;-o-transition:1.5s background-color;-ms-transition:1.5s background-color;transition:1.5s background-color;}
 .record a{-webkit-transition:1s color;-moz-transition:1s color;-o-transition:1s color;-ms-transition:1s color;transition:1s color}
 .clear-record{cursor:pointer}
+.site-info__faq{-webkit-transition:max-height .5s;-moz-transition:max-height .5s;-o-transition:max-height .5s;-ms-transition:max-height .5s;transition:max-height .5s;max-height:150px;overflow:hidden;margin-bottom:20px;position:relative;}
+.site-info__faq.expanded{max-height:500px;}
+.site-info__faq.expanded .site-info__faq__item__answer{white-space:normal}
+.site-info__faq.expanded .site-info__faq__item__question{color:#333}
+.site-info__faq__show-more{position:absolute;width:100%;bottom:0;left:0;height:20px;background-color:#dedede;text-align:center;line-height:1.2;cursor:pointer;}
+.site-info__faq__show-more:hover{background-color:#bbb}
+.site-info__faq__item{margin-bottom:10px}
+.site-info__faq__item__question{color:#999;font-weight:bold}
+.site-info__faq__item__answer{color:#999;white-space:nowrap;overflow:hidden;-o-text-overflow:ellipsis;text-overflow:ellipsis}
 @media (max-width:500px){.submit-record{float:none;margin-top:5px;width:100%}
 .expiration-time-buttons{width:100%;}
 .expiration-time-buttons.btn-group .btn+.btn{margin-left:0}
 .expiration-time-buttons .btn-large{width:25%;padding-left:5px;padding-right:5px}
 .site-info{padding-top:10px}
-.site-info__tagline{font-size:24px}
+.tagline{font-size:24px}
 .page-header h1{font-size:42px}
 }@media (max-width:600px){.record__url{overflow:hidden;max-width:200px;display:inline-block;-o-text-overflow:ellipsis;text-overflow:ellipsis}
 }@media (max-width: 480px){.found-record__title{font-size:26px}

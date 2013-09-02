@@ -20,11 +20,24 @@ block content
               |Expires in 
               span.expiration__minutes.js-expiration__minutes= timeLeft
               |&nbsp;min
-
-
+  .row
+    .col-lg-12
+      .tagline Share data for a few minutes, and then it's gone! It's like snapchat for passwords. 
   .row
     section.col-lg-4.site-info 
-      .site-info__tagline Share data for 10 minutes, and then it's gone! It's like snapchat for passwords.
+      .site-info__faq
+        h4 FAQ
+        .site-info__faq__show-more.js-site-info__faq__show-more more
+        .site-info__faq__item
+          .site-info__faq__item__question Who's behind this site?
+          .site-info__faq__item__answer Kenny Chan (<a href="http://www.kennychan.co" target="_blank">kennychan.co</a>). I created guardthis.info because I didn't like the idea of emailing passwords in plain text for shared sites (e.g., Google apps, Heroku) to my colleagues.
+        .site-info__faq__item
+          .site-info__faq__item__question How do I know my password is secure?
+          .site-info__faq__item__answer 1) Your data is sent over SSL (i.e. "https"). 2) Finding a password is like finding a key on the street - it's nearly impossible to find the door it opens without an address. So be smart and don't send your username and password in the same link.
+        .site-info__faq__item
+          .site-info__faq__item__question What happens when a link expires? Can I recover an expired link?
+          .site-info__faq__item__answer The data is gone forever, sorry! You can't recover the information.
+
       a.site-info__contact(href="mailto:info@guardthis.info", target="_blank") contact
     section.col-lg-8
       .row

@@ -101,6 +101,11 @@
     return e.preventDefault();
   });
 
+  $('.js-site-info__faq__show-more').on('click', function() {
+    $('.site-info__faq').addClass('expanded');
+    return $('.js-site-info__faq__show-more').remove();
+  });
+
   $('.js-submit').on('click.submit', function() {
     var expirationMinutes, text;
     expirationMinutes = $('.expiration-time-buttons .active input').attr('data-expiration-minutes');

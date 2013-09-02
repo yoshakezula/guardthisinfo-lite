@@ -44,12 +44,13 @@ body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6
   border: 4px solid #3071A9;
   margin-top: -2px;
   border-radius: 3px !important
-  
-.site-info__tagline
+
+.tagline
   font-size: 30px;
   font-weight: 500;
-  color: #555;
-  text-shadow: 1px 1px #CCC;
+  text-shadow: 1px 1px #aaa;
+  line-height: 1.2;
+  margin-bottom: 20px;
 
 .buttons
   margin-top: 10px
@@ -80,6 +81,44 @@ body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6
 .clear-record
   cursor: pointer
 
+.site-info__faq
+  transition max-height 0.5s
+  max-height:150px
+  overflow hidden
+  margin-bottom 20px
+  position: relative
+  &.expanded
+    max-height 500px
+    .site-info__faq__item__answer
+      whitespace normal
+    .site-info__faq__item__question
+      color: #333
+
+.site-info__faq__show-more
+  position absolute
+  width 100%
+  bottom 0
+  left 0
+  height 20px
+  background-color #dedede
+  text-align center
+  line-height 1.2
+  cursor: pointer
+  &:hover
+    background-color #bbb
+
+.site-info__faq__item
+  margin-bottom 10px
+
+.site-info__faq__item__question
+  color: #999
+  font-weight bold
+.site-info__faq__item__answer
+  color #999  
+  whitespace: nowrap
+  overflow hidden
+  text-overflow ellipsis
+
 @media (max-width:500px)
   .submit-record
     float: none;
@@ -95,7 +134,7 @@ body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6
       padding-right 5px
   .site-info
     padding-top 10px
-  .site-info__tagline
+  .tagline
     font-size 24px
   .page-header h1 
     font-size 42px
