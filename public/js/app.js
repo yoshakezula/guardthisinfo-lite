@@ -97,6 +97,10 @@
 
   bindClearRecordCallback();
 
+  $('.app').on('submit', function(e) {
+    return e.preventDefault();
+  });
+
   $('.js-submit').on('click.submit', function() {
     var expirationMinutes, text;
     expirationMinutes = $('.expiration-time-buttons .active input').attr('data-expiration-minutes');

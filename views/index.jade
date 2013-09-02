@@ -45,7 +45,7 @@ block content
                 label.btn.btn-default.btn-large
                   input(type="radio", name="expiration-time", id="expiration-time--60", data-expiration-minutes="60")
                   | 60 min
-              input.btn.btn-primary.pull-right.btn-large.js-submit.submit-record(tabindex="2", type="submit") Get link
+              button.btn.btn-primary.pull-right.btn-large.js-submit.submit-record(tabindex="2", type="submit") Get link
               .clearfix
           
       .row.current-records__wrapper(style=(locals.existingRecords && locals.existingRecords.length > 0) ? "" : "display:none;")
