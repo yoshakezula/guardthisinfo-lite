@@ -14,6 +14,12 @@ dbURI = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localh
 #Set environment
 app.set 'env', process.env.NODE_ENV || 'development'
 
+#Configure Nodetime monitoring
+if process.env.NODETIME_ACCOUNT_KEY
+  require('nodetime').profile
+    accountKey: process.env.NODETIME_ACCOUNT_KEY
+    appName: 'guardthisinfo'
+
 mongoose.connect dbURI, (err, res) ->
   console.log if err then 'ERROR connecting to: ' + dbURI + '. ' + err else 'Succeeded connected to: ' + dbURI
 
