@@ -61,9 +61,18 @@ authenticate = (req, res, next) ->
     console.log 'existing auth_token'
   next()
 
+deleteRecordBody = (hash) ->
+  schema.Record.update {hash: req.params.hash}, {text: null, expired: true}, (err, numAffected) ->
+    if err || numAffected == 0
+      console.log 'record to delete not found: ' + req.params.hash 
+    else
+      console.log 'removed record with hash: ' + req.params.hash
+
 findRecords = (req, res, next) ->
   query = schema.Record.find {auth_token: req.signedCookies.auth_token}
-  query.select 'hash expirationTime'
+  query.where('expirationTime').gt(new Date())
+  query.where('expired', false)
+  query.select 'hash expirationTime expired'
   query.sort {expirationTime: -1}
   query.exec (err, result) ->
     if err
@@ -80,15 +89,16 @@ app.get '/', authenticate, findRecords, (req, res) ->
 
 app.get '/:hash', authenticate, findRecords, (req, res) ->
   query = schema.Record.findOne {hash: req.params.hash}
-  query.where('expirationTime').gt(new Date())
-  query.select 'text hash expirationTime'
+  query.select 'text hash expirationTime expired'
   query.exec (err, result) ->
-    if err || result == null
+    if err || result == null || result.expired || result.expirationTime < new Date()
+      if result != null
+        deleteRecordBody(req.params.hash)
       console.log 'error finding record with hash: ' + req.params.hash
       if err then console.log err
       res.render 'index', { foundRecord: 'not found'}
     else
-      res.render 'index', 
+      res.render 'index',
         foundRecord: if (err || result == null) then 'not found' else result
         timeLeft: parseInt (result.expirationTime - new Date()) / 60000
 
@@ -115,16 +125,13 @@ app.post '/', authenticate, (req, res) ->
         timeLeft: parseInt (newRecord.expirationTime - new Date()) / 60000
 
 app.post '/delete/:hash', authenticate, (req, res) ->
-  query = schema.Record.findOneAndRemove {hash: req.params.hash}
-  query.exec (err, result) ->
-    if err  || !result
+  schema.Record.update {hash: req.params.hash}, {text: null, expired: true}, (err, numAffected) ->
+    if err  || numAffected == 0
       console.log 'record to delete not found: ' + req.params.hash 
       res.send {errors: 'record not found'}
     else
-      console.log 'removed record with hash: ' + result.hash
-      res.send {removed: result.hash}
-
-
+      console.log 'removed record with hash: ' + req.params.hash 
+      res.send {removed: req.params.hash }
 
 port = process.env.PORT || 3000
 

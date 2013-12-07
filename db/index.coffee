@@ -13,7 +13,7 @@ recordSchema = new mongoose.Schema
     type: Number
     required: true
     default: 15
-    max: 120
+    max: 1440
   auth_token:
     type: String
     required: true

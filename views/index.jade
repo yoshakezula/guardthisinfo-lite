@@ -37,15 +37,15 @@ block content
                 label.btn.btn-default.btn-large
                   input(type="radio", name="expiration-time", id="expiration-time--5", data-expiration-minutes="5")
                   | 5 min
-                label.btn.btn-default.btn-large
-                  input(type="radio", name="expiration-time", id="expiration-time--10", data-expiration-minutes="10") 
-                  | 10 min
                 label.btn.btn-default.btn-large.active
                   input(type="radio", name="expiration-time", id="expiration-time--15", data-expiration-minutes="15") 
                   | 15 min
                 label.btn.btn-default.btn-large
                   input(type="radio", name="expiration-time", id="expiration-time--60", data-expiration-minutes="60")
                   | 60 min
+                label.btn.btn-default.btn-large
+                  input(type="radio", name="expiration-time", id="expiration-time--1440", data-expiration-minutes="1440")
+                  | 1 day
               button.btn.btn-primary.pull-right.btn-large.js-submit.submit-record(tabindex="2", type="submit") Get link
               .clearfix
           
@@ -56,13 +56,13 @@ block content
             each record in existingRecords
               li.list-group-item.record.js-record(data-hash=record.hash)
                 span.badge.clear-record.js-clear-record delete
-                if record.timeLeft <= 0
+                if record.timeLeft <= 0 || record.expired
                   em.record__url.text-muted= 'www.guardthis.info/' + record.hash
                 else
                   a.record__url(href="/" + record.hash)= 'www.guardthis.info/' + record.hash
                 br
                 em.text-muted.js-expiration__wrapper.expiration__wrapper
-                  if record.timeLeft <= 0
+                  if record.timeLeft <= 0 || record.expired
                     |Expired
                   else
                     |Expires in 
@@ -77,7 +77,7 @@ block content
           .site-info__faq__item__answer <a href="http://www.kennychan.co" target="_blank">Kenny Chan</a> — I created guardthis.info because I didn't like the idea of emailing passwords in plain text for sites shared with my colleagues (e.g., Google apps, Heroku).
         .site-info__faq__item
           .site-info__faq__item__question How do I know my password is secure?
-          .site-info__faq__item__answer 1) Your data is sent over SSL (i.e. "https"). 2) Finding a password is like finding a key on the street - it's nearly impossible to find the door it opens without an address. So be smart and don't send your username and password in the same link.
+          .site-info__faq__item__answer Finding a password is like finding a key on the street - it's nearly impossible to find the door it opens without an address. So be smart and don't send your username and password in the same link. Guardthis.info does not use SSL, but if you would like this feature, feel free to <a href="mailto:contact@guardthis.info" target="_blank">get in touch</a>
         .site-info__faq__item
           .site-info__faq__item__question What happens when a link expires? Can I recover an expired link?
           .site-info__faq__item__answer The data is gone forever, sorry! You can't recover the information.
