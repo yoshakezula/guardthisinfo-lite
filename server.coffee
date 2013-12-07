@@ -92,7 +92,6 @@ app.get '/:hash', authenticate, findRecords, (req, res) ->
   query.select 'text hash expirationTime expired'
   query.exec (err, result) ->
     if err || result == null || result.expired || result.expirationTime < new Date()
-      console.log result.expirationTime
       if result != null
         deleteRecordBody(req.params.hash)
       console.log 'error finding record with hash: ' + req.params.hash
